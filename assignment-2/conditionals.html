@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Conditionals</title>
+</head>
+
+<body>
+
+<script>
+
+// The following line results in a dialog box. “OK” and “Cancel” are true/false
+var user_response = confirm("Welcome to Scuba World! I'd like to ask you a few questions.");
+
+if (user_response == true) {
+    
+//parseInt function is used for whole numbers not fractions   parseInt extracts the integer 	//portion of whatever value is passed to it.
+var feedback = parseInt(prompt("Please rate your interest in scuba diving on a scale of 1-10."));
+if (feedback >= 7) {
+
+// Check that user age is valid.
+var age = parseInt(prompt ("Glad you're interested! What's your age?"));
+        
+if (age < 12) {
+	console.log ("Sorry, you have to be at least 12 years old. Snorkeling is good practice, for now.");
+} else { 
+
+// Age is >= 12
+console.log("Great! Your recommended course is:") 
+    
+// “/n” character called "newline" starts a new line for each option in the dialog box
+       
+var track = prompt("Type your choice of learning track:\n\n* curious only\n* theorist\n* enthusiast\n* professional");
+
+// variable name 'track == "...."' included in every one of the if(...) clauses,
+if (track == "curious only") {
+    console.log ("try-dive in swimming pool"); 
+} else if (track == "theorist") {
+    console.log ("online diving");
+} else if (track == "enthusiast") {
+    console.log ("open-water certification");
+} else if (track == "professional") {
+    console.log ("PADI instructor certification");
+} else {
+    console.log ("Please complete survey");	
+}
+            
+
+// Note: when checking the same variable for each step in an if-else construct, you can use a “switch” conditional statement for the same result.            
+// switch (track) {
+//case "curious only":
+//     console.log ("try-dive in swimming pool");
+//     break;
+//case "theorist":
+//     console.log ("online diving");
+//     break;
+// case "enthusiast":
+//     console.log ("open-water certification");
+//     break;
+// case "professional":
+//     console.log ("PADI instructor certification");
+//     break;
+
+// default:
+//     console.log ("Please complete survey.");
+// }
+        
+        }
+} else {
+     console.log ("What? Diving is fun!");
+}
+} else {
+    console.log("OK, I won't ask you anything. Carry on!");
+}	
+
+</script>
+
+</body>
+</html>
