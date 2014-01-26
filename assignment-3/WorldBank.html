@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Bank</title>
+</head>
+
+<body>
+<script src="http://thomaswilburn.net/sccc/data/expenditures.js">
+</script>
+<!--script above creates a variable named "expenditures"
+
+
+
+NOTE: I would like to write an array for average expenditures for North America only. Here is my process so far. 
+1)I would ask, "How would I go about this task as a human?" Answer: Isolate the 3 countries, add their expenditures and divide by 3.
+
+2)Ask, "How does a programmer instruct a computer to select only 3 countries and expenditures from a list?
+
+3)check online and note anything that looks promising:
+%%%%%%%%%%% Start Stack Overflow reply %%%%%%%%%%%%%
+// Gets your select
+var list = document.getElementById('ddlReason');
+
+// Get the index of selected item, first item 0, second item 1 etc ...
+var INDEX = list.selectedIndex;
+
+// Viola you're done
+alert(list[INDEX].value);
+Edit (forgot .value).
+
+You can also make that a bit more concise, but I wanted to make it readable so you could see what was going on. Shorter version:
+
+var list = document.getElementById('ddlReason');
+alert(list[list.selectedIndex].value);
+
+%%%%%%%%%%%%%%%end End Stack Overflow reply %%%%%%%%%%%%%
+4)Check in for further understanding of the above before moving on to the pursuit of adding and divding by 3.
+
+
+
+
+OPTIONAL QUESTIONS
+How many countries spend more than 5% of GDP on their military?
+How many countries spend less than 1%?
+What is the average expenditures just for North America (Canada, the US, and Mexico)?
+If we exclude North America, how does the average expenditure change?
+
+
+
+What's the country with the highest expenditures?
+What's the country with the lowest?
+What is the average military expenditure rate?
+
+
+-->
+
+<script>
+<!--following LOGIC: var is an index into the array of the presumed maximum value or maximum assumption:first value(i=0)is the maximum, if you assume WRONG and follow through the list, you'll find the maximum. In other words, the loop is initiated with a ridiculous assumption that the first item on the list will be the maximum. But if it isn't, move down the list accordingly.-->
+
+
+<!--These variables are starting ASSUMPTIONS-->
+var indexMax = 0; 
+var indexMin = 0;
+var sum = 0;
+
+
+for (var i=0; i < expenditures.length; i++) {
+	var expense = expenditures[i];
+    //console.log(expense.country);
+    //console.log(expense.amount); 
+	<!--a conditional is required to determine highest expenditure. IF the [i'th] expenditure is greater than the [indexMax'th] expenditure, update the value of indexMax equal to [i]. Note that expense is the same as the [i'th] expenditure.-->
+	if (expense.amount > expenditures[indexMax].amount) {
+		indexMax = i;	
+	}
+	if (expense.amount < expenditures[indexMin].amount) {
+		indexMin = i;
+	}
+<!--Take note whether numbers are in quotes. parseInt CONVERTS an integer in a string to an integer value. parseFloat does that with fractions (Float is Floating Point Number)-->
+	sum = sum + parseFloat(expense.amount);  
+}
+
+var expenseMax = expenditures[indexMax];
+console.log("the maximum expenditure is expenditure number " + (indexMax +1));
+console.log(expenseMax.country); 
+console.log(expenseMax.amount);
+ 
+var expenseMin = expenditures[indexMin];
+console.log("the minimum expenditure is expenditure number " + (indexMin +1));
+console.log(expenseMin.country); 
+console.log(expenseMin.amount); 
+
+var expenseAvg = sum / expenditures.length;
+console.log("the average expenditure is " + expenseAvg + " billion dollars");
+<!--concatenation above is a way of choosing the format of the result that logs to the console. expenseAvg will be a number, of course-->
+</script>
+</body>
+</html>
