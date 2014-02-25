@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Paint Shop</title>
+<style>
+canvas {display:block;}
+</style>
+</head>
+<body>
+
+<button class="shape" data-shape="square">&block;</button>
+<button class="shape" data-shape="circle">&bigcirc;</button>
+<button class="shape" data-shape="spray">&there4;</button>
+
+<button class="size" data-size="10">Small</button>
+<button class="size" data-size="30">Large</button>
+
+<button class="color" data-color="red">Red</button>
+<button class="color" data-color="blue">Blue</button>
+<button class="color" data-color="pink">Pink</button>
+<button class="color" data-color="orange">Orange</button>
+
+<canvas id="canvas"width= 800 height="600"></canvas>
+
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script>
+//locate script tag-jQuery
+
+//raw DOM elements?
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");//this is required to draw
+
+var $canvas = $(canvas);
+var brush = {//definition of brush object
+	active: false,
+	shape:"square",
+	size: 30,
+	color: "red",
+	density: 50//this property applies only to spray
+};
+//%%%%%%%%%%%%%%%%%%RECTANGLE brush shape here
+var drawRect = function(x, y, size) {
+	context.fillRect(x - size / 2, y - size / 2, size, size);//fillRect will be placed on the context/canvas
+};
+//%%%%%%%%%%%%%%%%CIRCLES circle brush shape here
+var drawCircle = function(x, y, size) {
+	context.beginPath();
+	context.arc(x, y, size / 2,0,2 *Math.PI);
+	context.fill();
+};
+
+//%%%%%%%%%%%%%% spray can %%%%%%%%%%%%%%%%%%%%%%
+var drawSpray = function(x,y,size) {
+	for (var i = brush.density; i>=0;i--) {
+		var radius = size/2;
+		var offsetX = getRandomInt(-radius, radius);
+		var offsetY = getRandomInt(-radius, radius);
+		context.fillRect(x + offsetX, y + offsetY, 1, 1);
+	  	}
+	}
+//%%%%%%%%% end spray can %%%%%%%%%%%%
+
+
+//basic mouseover interaction
+//".on" method is saying the function (of 2nd arg is to listen for the event named in the 1st arg
+$canvas.on("mousemove",function(e) {//canvas.on method is ALWAYS referring to events. the 1st argumt is the name of the event. 2nd argumt is a function that does something when the event occurs such as changing brush color, size, shape.
+	var offset = $canvas.offset();
+	//console.log(e.pageX,e.pageY);	
+	var x = e.pageX - offset.left;
+	var y = e.pageY - offset.top;
+	if (brush.active) {//if you click down...
+		context.fillStyle = brush.color;
+		if(brush.shape == "circle") {//...and you choose the circle brush, then draw circles
+			drawCircle(x,y,brush.size);//property "size" is a variable attached to object "brush". 
+		} else if (brush.shape == "square") {//...and you choose the rect brush, then draw rectangles
+			drawRect(x,y, brush.size);//fillRect(x,y,10,10);
+		} else if (brush.shape == "spray") {//this is a sibling conditional, 1 of 3, inside of the mousemove function-in this case, will divide rect into small pieces 
+		 	drawSpray(x,y,brush.size); 	
+		}
+	 }
+});
+
+$canvas.on("mousedown mouseup", function(e) {
+	//if (e.type == "mousedown") {
+		//brush.active = true;
+	//} else {
+		//brush.active = false;
+	//}                           
+	brush.active = e.type == "mousedown";	//a mouse click evaluates to true or false--don't draw when I'm not clicking active true == "click"  active false == "no click"
+});
+
+var shapes =$(".shape");
+shapes.on("click",function(e) { 
+	var $this = $(this);
+	var shape = $this.attr("data-shape");
+	brush.shape = shape;
+});
+//state of the app brush states:mouse button, draw tools: draw tools square, circle, spray can, line, color, size
+
+var sizes = $(".size");
+sizes.on("click", function() {
+	var $this = $(this);
+	var size = $this.attr("data-size");
+	brush.size = size;
+});
+
+var colors = $(".color");
+	colors.on("click", function() {
+		var $this = $(this);
+		var color = $this.attr("data-color");
+		brush.color = color;
+	});
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}//setting up a tool here to create random spray pattern
+
+
+
+//%%%%%%%%% spray %%%%%%%%%%%
+/*
+REF: http://perfectionkills.com/exploring-canvas-drawing-techniques/
+
+HTML  CSS  JS  Result
+
+el.onmousedown = function(e) {
+  isDrawing = true;
+  ctx.lineWidth = 10;
+  ctx.lineJoin = ctx.lineCap = 'round';
+  ctx.moveTo(e.clientX, e.clientY);
+};
+
+el.onmousemove = function(e) {
+  if (isDrawing) {
+    for (var i = density; i--; ) {
+      var radius = 20;
+      var offsetX = getRandomInt(-radius, radius);
+      var offsetY = getRandomInt(-radius, radius);
+      ctx.fillRect(e.clientX + offsetX, e.clientY + offsetY, 1, 1);
+    }
+  }
+};
+el.onmouseup = function() {
+  isDrawing = false;
+};*/	
+	
+
+</script>
+</body>
+</html>
