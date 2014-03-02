@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Magic 8 Ball</title>
+    <meta charset="utf8">
+  </head>
+  <style>
+ 
+   body {
+	  margin:0;
+	  padding:0;
+	  background-color:#10183f;  
+   }
+    
+
+/* for reference:background image management: file size, downloads, permissions, css rules
+http://wallpaperstock.net/outer-space-pleiades_wallpapers_34387_1680x1050_1.html	  
+	  http://img.wallpaperstock.net:81/outer-space-pleiades-wallpapers_34387_1680x1050.jpg
+	  
+http://free-mac-download.com/lp/genieo/df?mnag=115376&mnct=282&mncr=426488&gclid=CMbT3qnh9LwCFVBffgodE5sAaQ	  
+	  
+	   url(images/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/	
+	
+	
+   IMG.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+	 }
+	
+	.magic8 {
+		margin-top:30px;
+		padding:30px;
+	}
+	
+	#action, .getAnswer {
+		margin-left: auto;
+		margin-right: auto;
+		width: 400px;
+		text-align:center;
+		/*check display properties for centering. property could be more specifically labelled, "inline-element-align"*/
+	}
+	
+	.getAnswer {
+	color:#E4421D;
+	padding-top:15px;
+	}
+	
+	#search, #go {
+		border-radius:8px;
+	}
+	
+	
+  </style>
+  <body>
+  
+ 
+ <div class="results"></div> 
+ 
+ 
+<div class="magic8"><IMG class="displayed" src="images/magic8.png" alt="magic8">
+ </div>
+ 
+ <div id="action">
+ 	<input id="search">
+ 	<button id="go">Go</button>
+ </div>
+ 
+<div class="getAnswer"></div> 
+  
+
+
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
+    <script>
+ var getAnswer = function(tag) {
+	$("img").fadeOut(500);
+	var request = $.ajax({
+		url: "http://thomaswilburn.net:8080/magic8",
+		dataType: "jsonp"	
+		});
+	request.done(function(data) {
+		$(".getAnswer").empty();
+		$(".getAnswer").text(data.answer + ".");//property of the data object
+		$("img").fadeIn(500);
+	});//
+}
+
+var go = $("#go");
+go.on("click", function() {
+	var value = $("search").val();
+	getAnswer(value);
+}); 
+  
+</script>
+
+    
