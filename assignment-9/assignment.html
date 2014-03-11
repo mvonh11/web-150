@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+  <title>Broken Windows</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <div class="slides">
+    <section>
+      <h1>THIS IS A SLIDE</h1>
+    </section>
+    
+    <section>
+      <h2>Another day, another slide</h2>
+      <ul>
+        <li>Not the first slide</li>
+        <li>Not the last slide</li>
+        <li>Hence: middle slide?</li>
+      </ul>
+    </section>
+    
+    <section>
+      <h2>All good things...</h2>
+      <p>
+        This is the last slide
+      </p>
+    </section>
+    
+  </div><!--END slides div-->
+  
+  <nav class="slide-controls">
+    <a class="previous">Previous</a>
+    <a class="next">Next</a>
+  </nav>
+  
+  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+  <script>
+  //"click" is the first argument of the on method for class: slide-controls a--all arguments need to be in the parenthesis of the on method for links to work. Function is the 2nd argument so the closing paren encompasses the function and its code block.
+    $(".slide-controls a").on("click", function() {
+     var $that = $(this);
+      var current = $(".slides section:visible"); 
+      var slide; //The value of "var slide" will be assigned LATER when user clicks on "next" or "prev". var slide is initialized on lines 44-46. 
+      if ($that.is(".next")) {//if user clicks "next" then that slide is the current slide--make it visible.
+        slide = current.next();
+      } else {//otherwise make the prev slide visible
+        slide = current.prev();
+      }
+	  
+    current.hide();// any instance of var "current" is the value of: $(".slides section:visible").hide();    formerly, the var value was stated rather than var name: $(".slides section").hide();   Noted: value of a variable must be invoked by the use of its name, not its literal value
+	 
+      slide.fadeIn(1000);
+	  
+    });//this paren closes the arguments of .on method
+$(".slides section:not(:first)").hide(); //when page opens, hide all slides that are not the first slide
+    
+	//add closing script tag:
+	</script>
+	
+  <style>
+  
+
+  
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.slides section {
+  display: block;
+  width: 800px;
+  height: 600px;
+  margin: auto;
+  background: #DDD;
+  background: radial-gradient(white, #DDD);
+  padding: 50px;
+  font-size: 48px;
+}
+.slides section > * {
+  margin: auto;
+  display: block;
+}
+.slides h1, h2 {
+  text-align: center;
+}
+.slides h1 {
+  font-size: 200%;
+}
+.slides h2 {
+  font-size: 150%;
+}
+.slide-controls {
+  text-align: center;
+}
+.slide-controls a {
+  display: inline-block;
+  width: 200px;
+  padding: 20px;
+  background: #AAA;
+}
+  </style>
+</body>
+</html>
+
+
+
+<!--meaning of Dot/Period: to either access an attribute or call a method (function) of an object. 
+* document.title would pull the 'title' attribute from the 'document' object. 
+* document.write calls the 'write' method on document. 
+
+To put it into perspective, I'll create my own dog object: 
+var myDog = new Object(); 
+myDog.name="Rex"; 
+myDog.color="Yellow"; 
+myDog.breed="Golden Retriever"; 
+myDog.bark = function(){ alert("WOOF!"); } 
+
+alert("Name: "+myDog.name); // Alerts the name property of myDog ("Rex") 
+myDog.bark(); // Calls myDog's bark method (Alerts "WOOF!")
+
+
+
+
+"THIS" notes:"This" (or self) is a keyword which can be used in instance methods to REFER to the object on which the currently executing method has been invoked.
+
+There are really two main contexts of ‘this’ in jQuery. The first REFERS to a to a DOM element, 
+the second REFERS to a jQuery object.
+
+‘this’ is a DOM element when you are inside of a callback function (in the context of jQuery), for example, being called by the click, each, bind, etc. methods.
+
+'this' is a jQuery object when you are inside your own jQuery functions. Note that the result of a selector query (i.e. $('a') ) is a jQuery object, which is an array of the matched DOM elements (imagine jQuery is an array with bells on).
