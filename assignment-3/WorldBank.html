@@ -60,7 +60,7 @@ What is the average military expenditure rate?
 
 
 <!--These variables are starting ASSUMPTIONS-->
-var indexMax = 0; 
+var indexMax = 0;<!--again, "zero" presumed Maximum. It's not the value of "zero" but a position in the array. The 1st item in this ordered list--> 
 var indexMin = 0;
 var sum = 0;
 
@@ -76,12 +76,12 @@ for (var i=0; i < expenditures.length; i++) {
 	if (expense.amount < expenditures[indexMin].amount) {
 		indexMin = i;
 	}
-<!--Take note whether numbers are in quotes. parseInt CONVERTS an integer in a string to an integer value. parseFloat does that with fractions (Float is Floating Point Number)-->
+<!--Take note whether numbers are in quotes. parseInt CONVERTS an integer within a string to an integer value. parseFloat does that with fractions (Float is Floating Point Number)-->
 	sum = sum + parseFloat(expense.amount);  
 }
 
 var expenseMax = expenditures[indexMax];
-console.log("the maximum expenditure is expenditure number " + (indexMax +1));
+console.log("the maximum expenditure is expenditure number " + (indexMax +1));<!--indexMax +1 refers to list item#!-->
 console.log(expenseMax.country); 
 console.log(expenseMax.amount);
  
@@ -91,8 +91,17 @@ console.log(expenseMin.country);
 console.log(expenseMin.amount); 
 
 var expenseAvg = sum / expenditures.length;
-console.log("the average expenditure is " + expenseAvg + " billion dollars");
-<!--concatenation above is a way of choosing the format of the result that logs to the console. expenseAvg will be a number, of course-->
+console.log("the average expenditure as percent of GDP is " + expenseAvg);
+<!--concatenation above is a way of choosing the format of the result that logs to the console. expenseAvg will be a number, of course. In this case, it's a percent.-->
+
+
+<!--%%%%%%%%%%%% TEST %%%%%%%%%%%%%%%%%%%%% How many countries spend more than 5% of their GDP on military? 
+<!--var overFive = 0; for (var i=0; i > expenditures.length; i++) {var overFive = expenditures[i];if (expense.amount > expenditures[overFive].amount) {overFive = i;	}FOR UNDER 1% OF GDP:if (expense.amount < expenditures[underFive].amount) {underFive = i;}-->
+<!--Take note whether numbers are in quotes. parseInt CONVERTS an integer within a string to an integer value. parseFloat does that with fractions (Float is Floating Point Number)-->sum = sum + parseFloat(expense.amount);  }
+
+-->
+
+
 </script>
 </body>
 </html>

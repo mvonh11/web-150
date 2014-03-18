@@ -26,11 +26,11 @@ var assert = function(test, message) {
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //1. Create a function that returns a "doubled" string: "hello" -> "hellohello"
 
-//NOTE: doubler is the function-stringToBeDoubled is the argument
+//NOTE: doubler is the function. stringToBeDoubled is the argument
 var doubler = function(stringToBeDoubled) {
 	return stringToBeDoubled + stringToBeDoubled;
 	};
-	
+//HOW DOES THE COMPUTER RECOGNIZE "stringToBeDoubled" as a string without any quotes? 
 //variable named doubler is assigned as a function(argument goes here) Then: run code do something, take action, call the function: {take string "yourStringHere" or "stringToBeDoubled" and have it multiply by 2 or concatenate with itself} 
 
 
@@ -62,7 +62,7 @@ var makePercentage = function(numberInput) {
     // that the number result is converted to a string value and
     // concatenated together.
     return numberInput * 100 + "%";
-};
+};//FYI: compare this concatentation process with converting number TO A string and CONVERTING A STRING TO A NUMBER as in #3 below, that uses a "parseInt" approach. 
 
 
 //initial test: 
@@ -88,7 +88,7 @@ var adder = function() {};
 
 var adder = function(num1, num2) {
     //Note: the parseInt function doesn't mind if the 
-    // input is a number or a string, so no need for an if-else structure.
+    // input is a number or a string, so no need for an if-else structure. Q1:DOES "parseFloat" mind if input is a number or a string? Q2: If the function needs to ADD two numbers together, why is it named "num1, num2" and not "num1 + num2"?
     return parseInt(num1) + parseInt(num2);
 }
 
@@ -113,10 +113,10 @@ assert( isNaN( adder("abc", 4) ) && typeof adder("abc", 4) == "number", "Bad inp
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //4. Using the concept of function scope, change the variable `greeting` to
-//read "Hello, world!" just by editing the function `sayHello`.
+//read "Hello, world!" just by editing the function `sayHello`. Q: Where is the function named, "sayHello". I only see a variable with that name.
 var greeting;
 var sayHello = function() { greeting = "Hello, world!"; };
-
+//CONFIRM are these two lines the entire function? BTW, Function Scope is: How do you know whether a function needs an argument or not?
 
 
 sayHello();
@@ -139,10 +139,11 @@ assert( greeting == "Hello, world!", "sayHello() should alter greeting")
 var samples = [1, 2, 3, 4, 5];
 //var findTotal = function() {};
 var findTotal = function(inputArray) {
-    var total = 0;
+	//NOTE the word "input" commonly used as part of a function name. Looks useful for passing numbers into functions.
+    var total = 0;//is this "0" an assertion about the first list item on the index or is zero something else? DEFINE THIS statement in relation to the for loop.
     for(var i=0; i<inputArray.length; i++) {
         total = total + inputArray[i];
-    }
+    } //
     return total;
 }
 
@@ -159,7 +160,7 @@ var num = [1,2,3,4,5];
  var each = function(arr, fn) { //arr[i[ "+" numbers here
 	 var total = [];
  for (var i = 0; i < num.length; i++) {
-	 total[i] = arr[i] *2;//swap *2 with a "+" operation
+	 total[i] = arr[i] *2;//swap *2 with a "+" operator
 }
 return total;
 };
